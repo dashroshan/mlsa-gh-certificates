@@ -24,7 +24,7 @@ async function makePDF(id, name) {
 }
 
 export default async function getCertificate(stdId) {
-    const filesRes = await axios.get('https://api.github.com/repos/clashverse/Git_Test/git/trees/main?recursive=1');
+    const filesRes = await axios.get('https://api.github.com/repos/roshan1337d/github-practice/git/trees/main?recursive=1');
     const filesRaw = filesRes.data.tree;
     for (const f of filesRaw) {
         const fPath = f.path.toLowerCase();
