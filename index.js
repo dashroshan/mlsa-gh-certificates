@@ -21,9 +21,7 @@ app.get("/certificate/:stdid", async (req, res) => {
     stdidTrue = stdidTrue.toLowerCase()
     const { valid, data } = await getCertificate(stdidTrue);
     if (!valid) {
-        res.render('error', {
-            message: 'You haven\'t completed the task yet'
-        });
+        res.render('incomplete');
         return;
     }
     else {
