@@ -1,4 +1,4 @@
-import getCertificate from './pdf.js';
+import makePDF from './pdf.js';
 import path from 'path';
 import express from 'express'
 import { fileURLToPath } from 'url';
@@ -11,28 +11,16 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-app.get("/certificate/:stdid", async (req, res) => {
-    const stdid = req.params.stdid;
-    let stdidTrue = (stdid.match(/[bB][0-9]{6}/g) || [null])[0]
-    if (!stdidTrue) {
-        res.render('error', { message: 'Invalid student ID' });
-        return;
-    }
-    stdidTrue = stdidTrue.toLowerCase()
-    const { valid, data } = await getCertificate(stdidTrue);
-    if (!valid) {
-        res.render('incomplete');
-        return;
-    }
-    else {
-        res.status(200);
-        res.type('pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=MLSA GitHub Certificate.pdf');
-        res.send(data);
-    }
+app.get("/certificate/:name", async (req, res) => {
+    const name = req.params.name;
+    const data = await makePDF(name);
+    res.status(200);
+    res.type('pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=${name} - MLSA Certificate.pdf`);
+    res.send(data);
 });
 
-app.get("/certificate", (req, res) => {
+app.get("/admin", (req, res) => {
     res.render('home');
 });
 

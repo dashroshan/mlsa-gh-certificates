@@ -43,8 +43,8 @@
 </head>
 
 <body>
-    <h1>Practical GitHub Crash Course</h1>
-    <h3>Enter College ID</h3>
+    <h1>Certificates for MLSA</h1>
+    <h3>Enter Name</h3>
     <input type="text" name="stdid" id="stdid">
     <button id="download">Download Certificate</button>
 
@@ -53,12 +53,7 @@
         const btn = document.getElementById("download");
         const stdid = document.getElementById("stdid");
         btn.onclick = () => {
-            const stdidval = (stdid.value.match(/[bB][0-9]{6}/g) || [null])[0];
-            if (!stdidval) {
-                alert("Enter a valid student ID");
-                return;
-            }
-            window.location.href = `/certificate/${stdidval}`;
+            window.location.href = `/certificate/${stdid.value}`;
         }
     </script>
 </body>
